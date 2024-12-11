@@ -11,12 +11,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 public class PersonController {
-    Logger logger = LoggerFactory.getLogger(PersonController.class);
 
-    @CrossOrigin(origins = "http://localhost:3000")
-    @RequestMapping(path="person",method = RequestMethod.GET)
-    public Person get() {
-        return new Person("12345", "Test", new MobileDevice("1234", "Smartphone", "1234"));
-    }
 }
 
