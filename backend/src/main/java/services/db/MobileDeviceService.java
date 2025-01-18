@@ -7,6 +7,9 @@ import java.sql.*;
 import java.util.ArrayList;
 
 public class MobileDeviceService {
+    public MobileDeviceService() {
+    }
+
     public MobileDevice getMobileDeviceByIccd(String id) throws SQLException {
         ArrayList<MobileDevice> mobileDevices = new ArrayList<MobileDevice>();
         Connection connection = null;
