@@ -67,4 +67,70 @@ public class MeetingService {
         }
         return participants.toArray(new Person[0]);
     }
+
+    public Meeting[] getMeetingsBetween(String personOneId,String personTwoId) {
+
+            ArrayList<Meeting> meetings = new ArrayList<Meeting>();
+            Connection connection = null;
+            try {
+                connection = DriverManager.
+                        getConnection("jdbc:mysql://localhost:8889/clustering_db", "root", "root");
+                try (Statement stmt = connection.createStatement()) {
+                    String selectSql = "SELECT * FROM meeting WHERE meeting_id IN (SELECT meeting_id FROM meeting_participants WHERE person_id IN ("+personOneId+","+personTwoId+"))";
+                    try (ResultSet resultSet = stmt.executeQuery(selectSql)) {
+                        while (resultSet.next()) {
+                            meetings.add(new Meeting(
+                                            resultSet.getString(1),
+                                            this.getMeetingParticipants(resultSet.getString(1)),
+                                            resultSet.getInt(2),
+                                            resultSet.getDouble(3),
+                                            resultSet.getDouble(3),
+                                            resultSet.getDouble(3),
+                                            resultSet.getDate(4)
+                                    )
+                            );
+                        }
+                    }
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+            return meetings.toArray(new Meeting[0]);
+    }
+
+    public Meeting[] getMeetingsBetweenInMonth(String personOneId,String personTwoId,Date startDate,Date endDate) {
+
+        ArrayList<Meeting> meetings = new ArrayList<Meeting>();
+        Connection connection = null;
+        try {
+            connection = DriverManager.
+                    getConnection("jdbc:mysql://localhost:8889/clustering_db", "root", "root");
+            try (Statement stmt = connection.createStatement()) {
+                String selectSql = "SELECT * FROM meeting WHERE created_at >= startDate AND created_at <= endDate AND meeting_id IN (SELECT meeting_id FROM meeting_participants WHERE person_id IN ("+personOneId+","+personTwoId+"))";
+                try (ResultSet resultSet = stmt.executeQuery(selectSql)) {
+                    while (resultSet.next()) {
+                        meetings.add(new Meeting(
+                                        resultSet.getString(1),
+                                        this.getMeetingParticipants(resultSet.getString(1)),
+                                        resultSet.getInt(2),
+                                        resultSet.getDouble(3),
+                                        resultSet.getDouble(3),
+                                        resultSet.getDouble(3),
+                                        resultSet.getDate(4)
+                                )
+                        );
+                    }
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return meetings.toArray(new Meeting[0]);
+    }
+
+
 }
