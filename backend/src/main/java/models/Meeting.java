@@ -1,6 +1,6 @@
 package models;
 
-import clustering.DistanceCalculator;
+import clustering.GpsDistanceCalculator;
 
 import java.sql.Date;
 
@@ -24,7 +24,7 @@ public class Meeting {
     }
 
     public void calculateAndAddDistance(double latOne, double lonOne, double latTwo, double lonTwo) {
-        this.distance = new DistanceCalculator().calculateDistance(latOne, lonOne, latTwo, lonTwo);
+        this.distance = new GpsDistanceCalculator().calculateDistance(latOne, lonOne, latTwo, lonTwo);
     }
 
     public Person[] getPeople() {
