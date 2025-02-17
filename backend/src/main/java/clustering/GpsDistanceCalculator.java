@@ -1,6 +1,6 @@
 package clustering;
 
-public class DistanceCalculator {
+public class GpsDistanceCalculator {
 
     private int EARTH_RADIUS = 6371;
 

@@ -138,9 +138,5 @@ public class ClusterCalculator {
         }
         return phoneCallsCount;
     }
-
-
-
-
 }
 
