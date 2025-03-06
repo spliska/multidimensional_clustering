@@ -1,6 +1,6 @@
-import models.PhoneCall;
+import backend.models.PhoneCall;
 import org.junit.jupiter.api.Test;
-import services.db.PhoneCallService;
+import backend.db.PhoneCallService;
 
 public class PhoneCallTest {
     @Test
